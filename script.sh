@@ -20,9 +20,11 @@ if ! python3 -c "import pynvml, boto3" 2>/dev/null; then
   pip install pynvml boto3
 fi
 # 检查进程是否存在
-if pgrep -x "GpuMonitor.py" >/dev/null; then
-  echo "GpuMonitor.py is already running."
-else
-  echo "Starting GpuMonitor.py in the background..."
-  nohup python3 ./GpuMonitor.py >/var/log/ssm-gpumonitor.log 2>&1 &
-fi
+PIDS=`ps -ef | grep GpuMonitor | awk '{print $2}'`
+for pid in $PIDS
+do
+  kill -9 $pid
+done
+echo "exist process ${PIDS}"
+echo "Starting GpuMonitor.py in the background..."
+nohup python3 ./GpuMonitor.py >/var/log/ssm-gpumonitor.log 2>&1 &
