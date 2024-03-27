@@ -1,9 +1,12 @@
 #!/bin/bash
+
+apt-get install -y python3-pip
 # 检查并安装 Git
 if ! command -v git &>/dev/null; then
   echo "Git is not installed. Installing Git..."
   apt-get update
-  apt-get install -y git
+
+#  apt install python3-pip
 fi
 
 # 检查并克隆 GitHub 仓库
