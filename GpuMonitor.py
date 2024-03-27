@@ -47,8 +47,27 @@ METRICS = [
     'gpu_power_usage',
 ]
 
+def get_current_region():
+    """
+    Retrieves the AWS Region of the current EC2 instance.
+
+    Returns:
+        str: The name of the AWS Region where the current EC2 instance is located.
+    """
+    # Create an EC2 client
+    ec2 = boto3.client('ec2')
+
+    # Describe the availability zones
+    response = ec2.describe_availability_zones()
+
+    # Extract the Region name from the response
+    region = response['AvailabilityZones'][0]['RegionName']
+
+    return region
+
+
 # 定义 CloudWatch 客户端
-cw = boto3.client('cloudwatch')
+cw = boto3.client('cloudwatch', region_name=get_current_region())
 
 
 def collect_gpu_metrics():
@@ -111,6 +130,8 @@ def get_instance_id():
     except Exception as e:
         print(f"Error getting instance ID: {e}")
         return None
+
+
 
 
 def main():
