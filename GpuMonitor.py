@@ -47,6 +47,7 @@ METRICS = [
     'gpu_power_usage',
 ]
 
+
 def get_current_region():
     """
     Retrieves the AWS Region of the current EC2 instance.
@@ -82,7 +83,7 @@ def collect_gpu_metrics():
         used = mem.used
         total = mem.total
         gpu_metrics[f'gpu_{i}_memory_used'] = used
-        gpu_metrics[f'gpu_{i}_memory_utilization'] = used/total * 100
+        gpu_metrics[f'gpu_{i}_memory_utilization'] = used / total * 100
         gpu_metrics[f'gpu_{i}_temperature'] = nvmlDeviceGetTemperature(handle, NVML_TEMPERATURE_GPU)
         gpu_metrics[f'gpu_{i}_power_usage'] = nvmlDeviceGetPowerUsage(handle) / 1000.0  # 转换为瓦特
         # 获取 GPU encoder/decoder 利用率
@@ -92,7 +93,7 @@ def collect_gpu_metrics():
         dec_util, test1 = nvmlDeviceGetDecoderUtilization(handle)
         gpu_metrics[f'gpu_{i}_decoder_util'] = dec_util
 
-    print(gpu_metrics)
+    # print(gpu_metrics)
     return gpu_metrics
 
 
@@ -116,7 +117,7 @@ def put_metrics_to_cloudwatch(gpu_metrics, instance_id):
         })
     if metric_data:
         resp = cw.put_metric_data(Namespace=namespace, MetricData=metric_data)
-        print(resp)
+        # print(resp)
     else:
         print("no data")
 
@@ -132,14 +133,14 @@ def get_instance_id():
         return None
 
 
-
-
 def main():
     instance_id = get_instance_id()
     while True:
         gpu_metrics = collect_gpu_metrics()
         put_metrics_to_cloudwatch(gpu_metrics, instance_id)
         time.sleep(5)  # 每分钟收集和上报一次指标
+        print("run")
+
 
 if __name__ == '__main__':
     main()
