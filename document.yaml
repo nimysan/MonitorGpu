@@ -4,7 +4,7 @@ parameters:
  gitHubUrl:
    type: String
    description: The URL of the GitHub repository containing the script
-   default: https://github.com/your-username/your-repo/blob/main/script.sh
+   default: MonitorGpu
  gitHubBranch:
    type: String
    description: The branch of the GitHub repository containing the script
@@ -20,11 +20,13 @@ mainSteps:
    sourceType: GitHub
    sourceInfo: |
      {
-       "Owner": "your-username",
-       "Repository": "your-repo",
+       "Owner": "nimysan",
+       "Repository": "{{ gitHubUrl }}",
        "Path": "{{ scriptFilePath }}",
-       "Branch": "{{ gitHubBranch }}"
-   destinationPath: /tmp/script.sh
+       "Branch": "main"
+     }
+   workingDirectory: /tmpgit a
+
 - action: aws:runShellScript
   name: RunScript
   inputs:
