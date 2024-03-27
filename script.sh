@@ -18,10 +18,7 @@ else
   cd MonitorGpu
 fi
 # 检查并安装依赖库
-if ! python3 -c "import pynvml, boto3" 2>/dev/null; then
-  echo "Installing required libraries..."
-  pip install pynvml boto3
-fi
+pip install pynvml boto3
 # 检查进程是否存在
 PIDS=`ps -ef | grep GpuMonitor| grep -v "grep" | awk '{print $2}'`
 for pid in $PIDS
