@@ -24,5 +24,5 @@ if pgrep -x "GpuMonitor.py" >/dev/null; then
   echo "GpuMonitor.py is already running."
 else
   echo "Starting GpuMonitor.py in the background..."
-  nohup python3 MonitorGpu/GpuMonitor.py >/var/log/ssm-gpumonitor.log 2>&1 &
+  nohup python3 ./GpuMonitor.py >/var/log/ssm-gpumonitor.log 2>&1 &
 fi
