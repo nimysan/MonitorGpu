@@ -9,7 +9,7 @@ fi
 # 检查并克隆 GitHub 仓库
 if [ ! -d "MonitorGpu" ]; then
   echo "Cloning GitHub repository..."
-  git clone https://github.com/nimysan/MonitorGpu.git
+  git clone -b master https://github.com/nimysan/MonitorGpu.git
   cd MonitorGpu
 else
   cd MonitorGpu
