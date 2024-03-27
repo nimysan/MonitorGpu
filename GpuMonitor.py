@@ -67,7 +67,7 @@ def get_current_region():
 
 
 # 定义 CloudWatch 客户端
-cw = boto3.client('cloudwatch', region_name=get_current_region())
+cw = boto3.client('cloudwatch', region_name="us-east-1")
 
 
 def collect_gpu_metrics():
