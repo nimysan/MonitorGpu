@@ -1,5 +1,5 @@
 import boto3
-topic_arn = "arn:aws:sns:us-east-1:390468416359:gpu-monitor-alarm"
+topic_arn = "arn:aws:sns:us-east-1:xxxx:gpu-monitor-alarm"
 aws_region = 'us-east-1'
 
 # 创建 CloudWatch 客户端
